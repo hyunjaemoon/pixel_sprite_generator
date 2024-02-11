@@ -1,4 +1,4 @@
-# Pixel Sprite Generator
+# Pixel Sprite Generator [CURRENTLY WIP]
 
 Pixel Sprite Generator Application fully written in Rust
 
