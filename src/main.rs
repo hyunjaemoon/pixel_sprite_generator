@@ -1,9 +1,12 @@
+mod generator;
+
 use std::io::Cursor;
 
 use actix_web::{web, App, HttpResponse, HttpServer, Responder, Result};
+use generator::generate_sprite;
 use image::{ImageOutputFormat, RgbaImage};
 
-async fn generate_sprite(_prompt: web::Path<String>) -> Result<HttpResponse> {
+async fn generate_simple_sprite(_prompt: web::Path<String>) -> Result<HttpResponse> {
     // For simplicity, we ignore the prompt and generate a simple sprite
     let img = create_simple_sprite();
 
@@ -37,7 +40,8 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .route("/", web::get().to(index))
             .route("/generate", web::get().to(index))
-            .route("/generate/{prompt}", web::get().to(generate_sprite))
+            .route("/generate/{prompt}", web::get().to(generate_simple_sprite))
+            .route("/experiment/{prompt}", web::get().to(generate_sprite))
     })
     .bind("127.0.0.1:8080")?
     .run()
